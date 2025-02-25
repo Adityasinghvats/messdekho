@@ -1,24 +1,44 @@
 {% extends "layout.html" %}
+{% load form_tags %}
+
+{% block title %}
+Login - MessDekho
+{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="text-center">Login</h3>
+            <div class="card border-0 shadow-lg bg-white bg-opacity-10">
+                <div class="card-header bg-white bg-opacity-10 border-0">
+                    <h3 class="text-center text-white mb-0">
+                        <i class="bi bi-person-circle me-2"></i>Login
+                    </h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="post">
                         {% csrf_token %}
-                        {{form.as_p}}
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="submit">Login</button>
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label text-white">{{ field.label }}</label>
+                            {{ field.errors }}
+                            {{ field|addclass:'form-control bg-light bg-opacity-25 border-0 text-white' }}
+                        </div>
+                        {% endfor %}
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-light btn-lg rounded-pill" type="submit">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                            </button>
                         </div>
                     </form>
                 </div>
-                <div class="card-footer text-center">
-                    <p class="mb-0">Don't have an account? <a href="{% url 'register' %}">Register Here</a></p>
+                <div class="card-footer bg-white bg-opacity-10 border-0 text-center">
+                    <p class="mb-0 text-white">
+                        Don't have an account? 
+                        <a href="{% url 'register' %}" class="text-white text-decoration-none">
+                            <i class="bi bi-person-plus-fill me-1"></i>Register Here
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
