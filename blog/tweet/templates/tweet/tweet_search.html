@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Twitter
+{% endblock %}
+
+{% block content %}
+<h2>Search Tweets</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+   {% if search_result %}
+   <div class="container row gap-3 p-2">
+    {% for tweet in search_result %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{tweet.photo.url}}" class="card-img-top p-2" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{tweet.user.username}}</h5>
+          <p class="card-text">{{tweet.text}}</p>
+          {%if tweet.user == user%}
+          <a href="{% url "tweet_edit" tweet.id %}" class="btn btn-primary">Edit</a>
+          <a href="{% url "tweet_delete" tweet.id %}" class="btn btn-danger">Delete</a>
+          {%endif%}
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+   {% endif %}
+<a class="btn btn-primary position-fixed bottom-0 end-0 m-4" href="{% url 'tweet_create' %}">Create a tweet</a>
+
+{% endblock content %}
