@@ -5,12 +5,6 @@ Twitter
 {% endblock %}
 
 {% block content %}
-{% comment %} <h2>Search Tweets</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form> {% endcomment %}
    {% if search_result %}
    <div class="container row gap-3 p-2">
     {% for tweet in search_result %}
